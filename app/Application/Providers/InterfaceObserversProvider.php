@@ -41,7 +41,7 @@ class InterfaceObserversProvider extends ServiceProvider
         foreach (get_ddd_infrastructure_apis() as $infrastructure_api) {
             $dirIServices = str_replace('change_infrastructure', $infrastructure_api, $dirInfrastructure);
 
-            $this->folders[] = $this->carregarArquivos($dirIServices, $infrastructure_api);
+            $this->carregarArquivos($dirIServices, $infrastructure_api);
         }
     }
 
