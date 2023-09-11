@@ -11,12 +11,16 @@ abstract class DTOAbstract
         return app(get_class($this));
     }
 
-    public function toArray(array $except = []): array
+    public function toArray(array $except = [], array $only = []): array
     {
         $return = collect(
             call_user_func('get_object_vars', $this)
         );
-        return $return->except($except)->toArray();
+
+        if (!empty($only)) $return->only($only);
+        if (!empty($except)) $return->except($except);
+
+        return $return->toArray();
     }
 
     public function toJson(array $except = []): string

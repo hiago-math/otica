@@ -8,6 +8,11 @@ use Shared\DTO\DTOAbstract;
 class CriarClienteDTO extends DTOAbstract
 {
     /**
+     * @var string|null
+     */
+    public ?string $cliente_uid;
+
+    /**
      * @var string
      */
     public string $nome_completo;
@@ -77,18 +82,25 @@ class CriarClienteDTO extends DTOAbstract
     public ?string $numero;
 
     /**
+     * @var string|null
+     */
+    public ?string $endereco_uid;
+
+    /**
      * @param string $nome_completo
+     * @param string $cpf
      * @param string $nome_mae
-     * @param Carbon $data_nascimento
-     * @param Carbon|null $ultima_consulta
+     * @param string $data_nascimento
+     * @param string $sexo_uid
+     * @param string $cep
+     * @param string|null $ultima_consulta
      * @param string|null $convenio
      * @param string|null $profissao
      * @param string|null $numero_celular
      * @param string|null $numero_residencia
-     * @param string $sexo_uid
-     * @param string $cep
-     * @param string|null $complemento
      * @param string|null $numero
+     * @param string|null $complemento
+     * @param string|null $endereco_uid
      * @return CriarClienteDTO
      */
     public function registrar(
@@ -103,8 +115,10 @@ class CriarClienteDTO extends DTOAbstract
         ?string $profissao,
         ?string $numero_celular,
         ?string $numero_residencia,
-        ?string $complemento,
-        ?string $numero
+        ?string $numero,
+        ?string $complemento = null,
+        ?string $endereco_uid = null,
+        ?string $cliente_uid = null
     )
     {
         $this->nome_completo = $nome_completo;
@@ -120,6 +134,8 @@ class CriarClienteDTO extends DTOAbstract
         $this->cep = $cep;
         $this->complemento = $complemento;
         $this->numero = $numero;
+        $this->endereco_uid = $endereco_uid;
+        $this->cliente_uid = $cliente_uid;
 
         $this->idade = Carbon::parse($data_nascimento)->diffInYears(Carbon::now());
 

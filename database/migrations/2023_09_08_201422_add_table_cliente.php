@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('numero_celular')->nullable()->index();
             $table->string('numero_residencia')->nullable()->index();
 
-            $table->foreignUlid('sexo_uid')->constrained('sexos', 'sexo_uid');
-            $table->foreignUlid('endereco_uid')->constrained('enderecos', 'endereco_uid');
+            $table->foreignUuid('sexo_uid')->constrained('sexos', 'sexo_uid');
+            $table->foreignUuid('endereco_uid')->constrained('enderecos', 'endereco_uid');
 
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrentOnUpdate();

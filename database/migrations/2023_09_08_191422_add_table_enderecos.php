@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('bairro')->index()->nullable(false);
             $table->string('cidade')->index()->nullable(false);
             $table->string('uf')->index()->nullable(false);
-            $table->string('numero')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
 

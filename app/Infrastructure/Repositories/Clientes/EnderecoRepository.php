@@ -36,12 +36,7 @@ class EnderecoRepository extends AbstractRepository implements IEnderecoReposito
     public function createAddress(CriarEnderecoDTO $addressDto): Collection
     {
         $addressCreated = $this->getModel()
-            ->updateOrCreate(
-                [
-                    'cep' => $addressDto->cep
-                ],
-                $addressDto->toArray()
-            );
+            ->create($addressDto->toArray());
 
 
         return $this->toCollect($addressCreated->toArray());

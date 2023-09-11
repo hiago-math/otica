@@ -35,12 +35,12 @@ class EnderecoService implements IEnderecoService
     /**
      * {@inheritDoc}
      */
-    public function getAddressByZipCode(string $zipCode): Collection
+    public function getAddressByZipCode(CriarEnderecoDTO $criarEnderecoDto): Collection
     {
-        $address = $this->addressRepository->findAddressByZipcode($zipCode);
+        $address = $this->addressRepository->findAddressByZipcode($criarEnderecoDto->cep);
 
         if ($address->isEmpty()) {
-            $address = $this->viaCepApi->getAddressByZipCode($zipCode);
+            $address = $this->viaCepApi->getAddressByZipCode($criarEnderecoDto->cep);
             $newCreateAddressDto = $this->prepareCreateAddressDtoByResponse($address);
             $address = $this->createAddress($newCreateAddressDto);
         }
@@ -48,7 +48,7 @@ class EnderecoService implements IEnderecoService
         return $address;
     }
 
-    /**
+    /**$this->prepareCriarEnderecoDTO($criarClienteDto)
      * {@inheritDoc}
      */
     public function createAddress(CriarEnderecoDTO $createUserDto): Collection

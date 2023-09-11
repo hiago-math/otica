@@ -37,10 +37,6 @@ class CriarEnderecoDTO extends DTOAbstract
     public string $uf;
 
     /**
-     * @var string
-     */
-    public string $numero;
-    /**
      * @param string $cep
      * @param string $logradouro
      * @param string|null $complemento
@@ -59,7 +55,6 @@ class CriarEnderecoDTO extends DTOAbstract
         string $bairro,
         string $cidade,
         string $uf,
-        string $numero = null,
         ?string $complemento = null
     ): self
     {
@@ -68,7 +63,6 @@ class CriarEnderecoDTO extends DTOAbstract
         $this->bairro = $bairro;
         $this->cidade = $cidade;
         $this->uf = $uf;
-        $this->numero = $numero;
         $this->complemento = !empty($complemento) ? $complemento : null;
 
         return $this;

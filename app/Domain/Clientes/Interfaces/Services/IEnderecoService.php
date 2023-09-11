@@ -9,10 +9,10 @@ use Shared\DTO\Cliente\CriarEnderecoDTO;
 interface IEnderecoService
 {
     /**
-     * @param string $zipCode
+     * @param CriarEnderecoDTO $criarEnderecoDto
      * @return Collection
      */
-    public function getAddressByZipCode(string $zipCode): Collection;
+    public function getAddressByZipCode(CriarEnderecoDTO $criarEnderecoDto): Collection;
 
     /**
      * @param CreateAddressDTO $createUserDto
