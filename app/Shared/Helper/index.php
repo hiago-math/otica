@@ -165,4 +165,18 @@ if (!function_exists('prepare_errors_validators')) {
     }
 }
 
+if (!function_exists('remove_null_array')) {
+
+    /**
+     * @param array $array
+     * @return array
+     */
+    function remove_null_array(array $array): array
+    {
+        return array_filter($array, function ($value) {
+            return $value !== null;
+        });
+    }
+}
+
 

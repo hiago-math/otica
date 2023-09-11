@@ -218,3 +218,10 @@ footer {
 .pagination-links ul.pagination li {
     margin: 0 5px; /* Espaçamento entre os elementos <li> */
 }
+
+.readonly-field {
+    background-color: #f2f2f2; /* Define a cor de fundo desejada */
+    color: red; /* Define a cor do texto desejada */
+    border: 1px solid #ccc; /* Define a borda desejada */
+    /* Outros estilos personalizados, se necessário */
+}

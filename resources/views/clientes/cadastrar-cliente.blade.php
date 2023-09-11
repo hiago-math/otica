@@ -108,7 +108,7 @@
             <label for="logradouro">Logradouro:</label>
         </div>
         <div class="input-group">
-            <input type="text" id="logradouro" placeholder="" readonly>
+            <input type="text" id="logradouro" placeholder="" class="readonly-field" readonly>
         </div>
     </div>
     <div class="form-group">
@@ -116,7 +116,7 @@
             <label for="bairro">Bairro:</label>
         </div>
         <div class="input-group">
-            <input type="text" id="bairro" placeholder="" readonly>
+            <input type="text" id="bairro" placeholder="" class="readonly-field" readonly>
         </div>
     </div>
     <div class="form-group">
@@ -124,7 +124,7 @@
             <label for="cidade">Cidade:</label>
         </div>
         <div class="input-group">
-            <input type="text" id="cidade" readonly>
+            <input type="text" id="cidade" class="readonly-field" readonly>
         </div>
     </div>
     <div class="form-group">
@@ -132,7 +132,7 @@
             <label for="uf">UF:</label>
         </div>
         <div class="input-group">
-            <input type="text" id="uf" readonly>
+            <input type="text" id="uf" class="readonly-field" readonly>
         </div>
     </div>
     <div class="form-group">

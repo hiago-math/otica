@@ -30,6 +30,8 @@
                     <td>
                         <a href="{{ route('info.cliente', ['cliente_uid' => $cliente['cliente_uid']]) }}"
                            class="button">Ver Detalhes</a>
+                        <a style="background-color: green" href="{{ route('view.editar', ['cliente_uid' => $cliente['cliente_uid']]) }}"
+                           class="button">Editar</a>
                     </td>
                 </tr>
             @endforeach

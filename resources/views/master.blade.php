@@ -4,15 +4,39 @@
     <meta charset="UTF-8">
     <title>@yield('title')</title>
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         $(document).ready(function () {
 
-            $('.datepicker').inputmask('99-99-9999',  { placeholder: 'DD-MM-AAAA' });
-            $('.cell').inputmask('(99) 9 9999-9999',  { placeholder: '(DD) 0 0000-0000' });
-            $('.tell').inputmask('(99) 9999-9999',  { placeholder: '(DD) 0000-0000' });
+            const campo_iniciais = {
+                cep_inicial: $('#cep').val(),
+                nome_completo_inicial: $('#nome_completo').val(),
+                cpf_inicial: $('#cpf').val(),
+                nome_mae_inicial: $('#nome_mae').val(),
+                data_nascimento_inicial: $('#data_nascimento').val(),
+                ultima_consulta_inicial: $('#ultima_consulta').val(),
+                convenio_inicial: $('#convenio').val(),
+                profissao_inicial: $('#profissao').val(),
+                numero_celular_inicial: $('#numero_celular').val(),
+                numero_residencia_inicial: $('#numero_residencia').val(),
+                genero_inicial: $('#genero').val(),
+                numero_inicial: $('#numero').val(),
+            };
+            console.log(campo_iniciais['nome_completo_inicial']);
+
+            $('.datepicker').inputmask('99-99-9999', {placeholder: 'DD-MM-AAAA'});
+            $('.cell').inputmask('(99) 9 9999-9999', {placeholder: '(DD) 0 0000-0000'});
+            $('.tell').inputmask('(99) 9999-9999', {placeholder: '(DD) 0000-0000'});
 
             $('#buscarCep').on('click', function () {
                 var route = '{{ route('buscar.cep') }}';
@@ -21,7 +45,7 @@
                 $.ajax({
                     url: route, // Substitua '/sua-rota/' pela rota real do seu servidor
                     method: 'GET',
-                    data: { zip_code: cep }, // Passando o CEP como parâmetro na requisição
+                    data: {zip_code: cep}, // Passando o CEP como parâmetro na requisição
                     success: function (data) {
                         // Atualize o campo #numero com o valor retornado do servidor
                         $('#logradouro').val(data.logradouro);
@@ -35,6 +59,7 @@
                     }
                 });
             });
+
             $('#cadastrar').on('click', function () {
                 event.preventDefault(); // Evita o envio do formulário padrão
 
@@ -98,23 +123,101 @@
                             numero: numero
                         },
                         success: function (data) {
-                            $('#nome_completo').addClass('campo-invalido');
+                            alert('Cliente criado com sucesso!');
                         },
                         error: function (erro) {
-                            // Trate erros aqui, se necessário
-                            console.log(erro);
+                            alert('Erro ao criar usuario!');
+
+                            window.location.reload();
                         }
                     });
                 } else {
                     alert('Por favor, preencha todos os campos obrigatórios.');
                 }
             });
+
+            $('#editarCliente').on('click', function () {
+                event.preventDefault(); // Evita o envio do formulário padrão
+
+                var clienteUid = getParameterByName('cliente_uid');
+                var route = '{{ route('editar.cliente') }}' + '?cliente_uid=' + clienteUid;
+
+                // Define a classe de erro
+                var classeErro = 'campo-invalido';
+
+                var camposAtuais = [
+                    'nome_completo',
+                    'cep',
+                    'cpf',
+                    'nome_mae',
+                    'data_nascimento',
+                    'ultima_consulta',
+                    'convenio',
+                    'profissao',
+                    'numero_celular',
+                    'numero_residencia',
+                    'genero',
+                    'numero',
+
+                ];
+
+                $('.' + classeErro).removeClass(classeErro);
+
+                var payload = {};
+
+                camposAtuais.forEach(function (campoAtuais) {
+                    var valorCampoAtuais = $('#' + campoAtuais).val();
+
+                    if (valorCampoAtuais !== campo_iniciais[campoAtuais + '_inicial']) {
+                        payload[campoAtuais] = valorCampoAtuais
+                    }
+
+                });
+
+                if (Object.keys(payload).length !== 0) {
+                    $.ajax({
+                        url: route,
+                        method: 'PUT',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        data: payload,
+                        success: function (data) {
+                            alert('Cliente editado com sucesso!');
+
+                            window.location.href = data.redirect
+                        },
+                        error: function (erro) {
+                            // Trate erros aqui, se necessário
+                            alert('Erro ao criar cliente!');
+                        }
+                    });
+                } else {
+                    alert('Por favor, edite alguma informacao');
+                }
+            });
         });
+
+        function getParameterByName(name, url) {
+            if (!url) {
+                url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) {
+                return null;
+            }
+            if (!results[2]) {
+                return '';
+            }
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
     </script>
 </head>
 <body>
 <div class="navbar">
-    <a href="{{ route('listagem.clientes') }}">Listagem</a>
+    <a href="{{ route('view.listagem') }}">Listagem</a>
     <a href="{{ route('view.cadastrar') }}">Cadastro</a>
 </div>
 <div class="container">

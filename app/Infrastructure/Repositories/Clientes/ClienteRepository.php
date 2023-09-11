@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Infrastructure\Models\Cliente;
 use Infrastructure\Repositories\AbstractRepository;
 use Shared\DTO\Cliente\CriarClienteDTO;
+use Shared\DTO\Cliente\EditarClienteDTO;
 
 class ClienteRepository extends AbstractRepository implements IClienteRepository
 {
@@ -70,5 +71,20 @@ class ClienteRepository extends AbstractRepository implements IClienteRepository
             ->toArray();
 
         return $this->toCollect($cliente);
+    }
+
+    /**
+     * @param EditarClienteDTO $editarClienteDto
+     * @return Collection
+     */
+    public function editarCliente(EditarClienteDTO $editarClienteDto): Collection
+    {
+        $clienteEditado = $this->getModel()
+            ->where('cliente_uid', $editarClienteDto->cliente_uid)
+            ->first();
+
+        $clienteEditado->update(remove_null_array($editarClienteDto->toArray()));
+
+        return $this->toCollect($clienteEditado->toArray());
     }
 }

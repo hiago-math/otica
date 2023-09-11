@@ -17,6 +17,6 @@ class CriarClienteController extends Controller
     {
         $criarClienteDto->registrar(...$request->all());
 
-       $criarClienteAction->execute($criarClienteDto);
+        $criarClienteAction->execute($criarClienteDto);
     }
 }

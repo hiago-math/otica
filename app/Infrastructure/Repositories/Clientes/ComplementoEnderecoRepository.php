@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Infrastructure\Models\ComplementoEndereco;
 use Infrastructure\Repositories\AbstractRepository;
 use Shared\DTO\Cliente\CriarClienteDTO;
+use Shared\DTO\Cliente\EditarClienteDTO;
 
 class ComplementoEnderecoRepository extends AbstractRepository implements IComplementoEnderecoRepository
 {
@@ -20,6 +21,22 @@ class ComplementoEnderecoRepository extends AbstractRepository implements ICompl
         $complemento = $this->getModel()
             ->create(
                 $clienteDto->toArray(
+                    only: ['numero', 'complemento', 'cliente_uid']
+                )
+            );
+
+        return $this->toCollect($complemento->toArray());
+    }
+
+    /**
+     * @param EditarClienteDTO $editarClienteDto
+     * @return Collection
+     */
+    public function editarComplementoEndereco(EditarClienteDTO $editarClienteDto): Collection
+    {
+        $complemento = $this->getModel()
+            ->updateOrCreate(
+                $editarClienteDto->toArray(
                     only: ['numero', 'complemento', 'cliente_uid']
                 )
             );
