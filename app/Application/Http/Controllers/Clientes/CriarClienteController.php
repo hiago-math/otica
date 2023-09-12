@@ -18,5 +18,7 @@ class CriarClienteController extends Controller
         $criarClienteDto->registrar(...$request->all());
 
         $criarClienteAction->execute($criarClienteDto);
+
+        return response()->json(['success' => true, 'redirect' => route('view.listagem')]);
     }
 }

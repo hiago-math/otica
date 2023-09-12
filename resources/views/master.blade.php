@@ -124,6 +124,8 @@
                         },
                         success: function (data) {
                             alert('Cliente criado com sucesso!');
+
+                            window.location.href = data.redirect
                         },
                         error: function (erro) {
                             alert('Erro ao criar usuario!');

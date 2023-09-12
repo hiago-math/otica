@@ -1,4 +1,4 @@
-include .env
+include .env.example
 
 setup:
 	@export APP_URL=${APP_URL}; \
